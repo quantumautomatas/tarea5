@@ -251,10 +251,10 @@
                     	\path[->]
                     	(p0) edge node {$a$} (p1)
                     	edge node {$b$} (p2)
-                    	(p1) edge node {$a$} (p3)
-                    	edge node {$b$} (p2)
-                    	(p2) edge node {$a$} (p1)
-                    	edge node {$b$} (p4)
+                    	(p1) edge [bend left] node {$a$} (p3)
+                    	edge [bend right] node {$b$} (p2)
+                    	(p2) edge [bend right] node {$a$} (p1)
+                    	edge [bend right] node {$b$} (p4)
                     	(p3) edge node {$a$} (p5)
                     	edge node {$b$} (p2)
                     	(p4) edge node {$a$} (p1)
@@ -264,8 +264,8 @@
                     	(p6) edge node {$a$} (p8)
                     	edge [loop above] node {$b$} (p6)
                     	(p7) edge [loop above] node {$a$} (p7)
-                    	edge node {$b$} (p6)
-                    	(p8) edge node {$a$} (p5)
+                    	edge [bend right] node {$b$} (p6)
+                    	(p8) edge [bend right] node {$a$} (p5)
                     	edge [loop above] node {$b$} (p8)
                     	;
                     	\end{tikzpicture}
@@ -310,7 +310,7 @@
                 			\begin{tikzpicture}[auto]
                 			% estados
                 			\node [state, accepting, initial] (q0) {$q_{0}$};
-                			\node [state] (q1) [above right=of q0] {$q_{1}$};
+                			\node [state] (q1) [above=of q0] {$q_{1}$};
                 			\node [state] (q2) [right=of q0] {$q_{2}$};
                 			\node [state] (q3) [below right=of q0] {$q_{3}$};
                 			\node [state] (q4) [below right=of q3] {$q_{4}$};
@@ -319,16 +319,16 @@
                 			
                 			% transiciones
                 			\path[->]
-                			(q0) edge node {$a$} (q1)
+                			(q0) edge [bend right] node {$a$} (q1)
                 			edge node {$a$} (q3)
-                			edge node {$b$} (q2)
-                			(q1) edge node {$a$} (q0)
-                			(q2) edge node {$b$} (q0)
-                			(q3) edge node {$a$} (q4)
+                			edge [bend right] node {$b$} (q2)
+                			(q1) edge  [bend right] node {$a$} (q0)
+                			(q2) edge [bend right] node {$b$} (q0)
+                			(q3) edge [bend right] node {$a$} (q4)
                 			(q3) edge node {$b$} (q5)
-                			(q4) edge node {$a$} (q3)
-                			(q5) edge node {$b$} (q6)
-                			(q6) edge node {$b$} (q5);
+                			(q4) edge [bend right] node {$a$} (q3)
+                			(q5) edge [bend right] node {$b$} (q6)
+                			(q6) edge  [bend right] node {$b$} (q5);
                 			\end{tikzpicture}
                 			\caption{$M$ que reconoce a $L$}
                 		\end{figure}
@@ -430,6 +430,31 @@
                 		\end{tabular}
                 	\end{table}
                 
+                $  $\\
+                
+                
+                
+                $  $\\
+                
+                
+                $  $\\
+                
+                
+                
+                $  $\\
+                
+                
+                
+                $  $\\
+                
+                
+                $  $\\
+                
+                
+                $  $\\
+                
+                $  $\\
+                
                 Con representación gráfica.
                 \begin{figure} [H]
                 	\centering
@@ -438,25 +463,25 @@
                 	\node [state, accepting, initial] (p0) {$p_{0}$};
                 	\node [state] (p1) [above right=of p0] {$p_{1}$};
                 	\node [state] (p2) [below right=of p0] {$p_{2}$};
-                	\node [state] (void) [below=of p2] {$\varnothing$};
                 	\node [state, accepting] (p3) [right=of p1] {$p_{3}$};
-                	\node [state, accepting] (p4) [above right=of void] {$p_{4}$};
+                	\node [state, accepting] (p4) [right=of p2] {$p_{4}$};
                 	\node [state] (p5) [right=of p4] {$p_{5}$};
+                	\node [state] (void) [below=of p4] {$\varnothing$};
                 	
                 	% transiciones
                 	\path[->]
                 	(p0) edge node {$a$} (p1)
-                	edge node {$b$} (p2)
-                	(p1) edge node {$a$} (p3)
-                	edge node {$b$} (p4)
+                	edge [bend right] node {$b$} (p2)
+                	(p1) edge [bend right] node {$a$} (p3)
+                	edge [bend right] node {$b$} (p4)
                 	(p2) edge node {$a$} (void)
-                	edge node {$b$} (p0)
-                	(p3) edge node {$a$} (p1)
+                	edge [bend right] node {$b$} (p0)
+                	(p3) edge [bend right] node {$a$} (p1)
                 	edge node {$b$} (p2)
                 	(p4) edge node {$a$} (void)
-                	edge node {$b$} (p5)
+                	edge [bend right] node {$b$} (p5)
                 	(p5) edge node {$a$} (void)
-                	edge node {$b$} (p4)
+                	edge [bend right] node {$b$} (p4)
                 	;
                 	\end{tikzpicture}
                 	\caption{$M^{d}$ que reconoce a $L$}
