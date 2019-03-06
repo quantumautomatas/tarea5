@@ -2,6 +2,7 @@
 
 % formato
 \usepackage[margin = 1.5cm, letterpaper]{geometry}
+\usepackage[utf8]{inputenc}
 
 % autómatas
 \usepackage{tikz}
@@ -105,6 +106,46 @@
                 
 
                 \item $L = \{a^{n} b^{m} | n + m \ es\ par \}$
+                \begin{enumerate}
+                	\item {
+                		El autómata sería
+                		\begin{align*}
+                		M &= \langle Q, \Sigma, \delta, q_{0}, F \rangle \ con\\
+                		Q &= \{q_{0}, q_{1}\} \\
+                		\Sigma &= \{a, b\} \\
+                		q_{0} &= q_{0} \\
+                		F &= \{q_{0}\}
+                		\end{align*}
+                		Y con función de transición $\delta$
+                		
+                		\begin{table}[H]
+                			\centering
+                			\begin{tabular}{|c|c|c|}
+                				\hline
+                				$\delta$ & $q_{0}$ & $q_{1}$ \\
+                				\hline
+                				$a$ & $\{q_{0}\}$ & $\{q_{1}\}$ \\
+                				\hline
+                				$b$ & $\{q_{1}\}$ & $\{q_{0}\}$ \\
+                				\hline
+                			\end{tabular}
+                		\end{table}
+                		
+                		Con representación gráfica.
+                		\begin{center}
+                			\begin{tikzpicture}[auto]
+                			% estados
+                			\node [state, accepting, initial] (q0) {$q_{0}$};
+                			\node [state] (q1) [right=of q0] {$q_{1}$};
+                			                			
+                			% transiciones
+                			\path[->]
+                			(q0)edge node {$a, b$} (q1)
+                			(q1)edge node {$a, b$} (q0);
+                			\end{tikzpicture}
+                		\end{center}
+                	}
+                \end{enumerate}
             \end{itemize}
             
         }
