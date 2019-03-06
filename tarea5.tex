@@ -221,6 +221,46 @@
                             $b$          & $p_2$ & $p_2$ & $p_4$ & $p_2$ & $p_6$ & $p_7$ & $p_6$ & $p_6$ & $p_8$ \\ \hline
                             \end{tabular}
                         \end{table}
+                    
+                     Con representación gráfica.
+                    \begin{figure} [H]
+                    	\centering
+                    	\begin{tikzpicture}[auto]
+                    	% estados
+                    	\node [state, initial] (p0) {$p_{0}$};
+                    	\node [state] (p1) [above right=of p0] {$p_{1}$};
+                    	\node [state] (p2) [below right=of p0] {$p_{2}$};
+                    	\node [state] (p3) [right=of p2] {$p_{3}$};
+                    	\node [state] (p4) [right=of p1] {$p_{4}$};
+                    	\node [state, accepting] (p5) [right=of p3] {$p_{5}$};
+                    	\node [state, accepting] (p6) [right=of p4] {$p_{6}$};
+                    	\node [state, accepting] (p7) [right=of p5] {$p_{7}$};
+                    	\node [state, accepting] (p8) [right=of p6] {$p_{8}$};
+                    	
+                    	% transiciones
+                    	\path[->]
+                    	(p0) edge node {$a$} (p1)
+                    	edge node {$b$} (p2)
+                    	(p1) edge node {$a$} (p3)
+                    	edge node {$b$} (p2)
+                    	(p2) edge node {$a$} (p1)
+                    	edge node {$b$} (p4)
+                    	(p3) edge node {$a$} (p5)
+                    	edge node {$b$} (p2)
+                    	(p4) edge node {$a$} (p1)
+                    	edge node {$b$} (p6)
+                    	(p5) edge [loop above] node {$a$} (p5)
+                    	edge node {$b$} (p7)
+                    	(p6) edge node {$a$} (p8)
+                    	edge [loop above] node {$b$} (p6)
+                    	(p7) edge [loop above] node {$a$} (p7)
+                    	edge node {$b$} (p6)
+                    	(p8) edge node {$a$} (p5)
+                    	edge [loop above] node {$b$} (p8)
+                    	;
+                    	\end{tikzpicture}
+                    	\caption{$M^{d}$ que reconoce a $L$}
+                    \end{figure}
                     }
                 \end{enumerate}
                 
@@ -233,39 +273,182 @@
                 		El autómata sería
                 		\begin{align*}
                 		M &= \langle Q, \Sigma, \delta, q_{0}, F \rangle \ con\\
-                		Q &= \{q_{0}, q_{1}\} \\
+                		Q &= \{q_{0}, q_{1}, q_{2}, q_{3}, q_{4}, q_{5}, q_{6}\} \\
                 		\Sigma &= \{a, b\} \\
                 		q_{0} &= q_{0} \\
-                		F &= \{q_{0}\}
+                		F &= \{q_{0}, q_{5}\}
                 		\end{align*}
                 		Y con función de transición $\delta$
                 		
                 		\begin{table}[H]
                 			\centering
-                			\begin{tabular}{|c|c|c|}
+                			\begin{tabular}{|c|c|c|c|c|c|c|c|}
                 				\hline
-                				$\delta$ & $q_{0}$ & $q_{1}$ \\
+                				$\delta$ & $q_{0}$ & $q_{1}$ & $q_{2}$ & $q_{3}$ & $q_{4}$ & $q_{5}$ & $q_{6}$ \\
                 				\hline
-                				$a$ & $\{q_{0}\}$ & $\{q_{1}\}$ \\
+                				$a$ & $\{q_{1}, q_{3}\}$ & $\{q_{0}\}$ & $\varnothing$ & $\{q_{4}\}$ & $\{q_{3}\}$ & $\varnothing$ & $\varnothing$ \\
                 				\hline
-                				$b$ & $\{q_{1}\}$ & $\{q_{0}\}$ \\
+                				$b$ & $\{q_{2}\}$ & $\varnothing$ & $\{q_{0}\}$ & $\{q_{5}\}$  & $\varnothing$ & $\{q_{6}\}$ & $\{q_{5}\}$ \\
                 				\hline
                 			\end{tabular}
                 		\end{table}
                 		
                 		Con representación gráfica.
                 		\begin{center}
+                		\begin{figure}[H]
+                			\centering
                 			\begin{tikzpicture}[auto]
                 			% estados
                 			\node [state, accepting, initial] (q0) {$q_{0}$};
-                			\node [state] (q1) [right=of q0] {$q_{1}$};
-                			                			
+                			\node [state] (q1) [above right=of q0] {$q_{1}$};
+                			\node [state] (q2) [right=of q0] {$q_{2}$};
+                			\node [state] (q3) [below right=of q0] {$q_{3}$};
+                			\node [state] (q4) [below right=of q3] {$q_{4}$};
+                			\node [state, accepting] (q5) [right=of q3] {$q_{5}$};
+                			\node [state] (q6) [right=of q5] {$q_{6}$};
+                			
                 			% transiciones
                 			\path[->]
-                			(q0)edge node {$a, b$} (q1)
-                			(q1)edge node {$a, b$} (q0);
+                			(q0) edge node {$a$} (q1)
+                			edge node {$a$} (q3)
+                			edge node {$b$} (q2)
+                			(q1) edge node {$a$} (q0)
+                			(q2) edge node {$b$} (q0)
+                			(q3) edge node {$a$} (q4)
+                			(q3) edge node {$b$} (q5)
+                			(q4) edge node {$a$} (q3)
+                			(q5) edge node {$b$} (q6)
+                			(q6) edge node {$b$} (q5);
                 			\end{tikzpicture}
+                			\caption{$M$ que reconoce a $L$}
+                		\end{figure}
                 		\end{center}
+                	}
+                	\item{
+                	 Procesamiento de las cadenas
+                	\begin{itemize}
+                		\item {
+                			$aabbbb$
+                			\begin{align*}
+                			\delta^{*}(\{q_{0}\}, aabbbb) 
+                			&= \delta^{*}(\{q_{1}, q_{3}\}, abbbb) 
+                			= \delta^{*}(\delta(q_{1}, a) 
+                			\cup \delta(q_{3}, a), bbbb) \\
+                			&= \delta^{*}(\{q_{0}, q_{4}\}, bbbb) 
+                			= \delta^{*}(\delta(q_{0}, b) 
+                			\cup \delta(q_{4}, b), bbb) \\
+                			&= \delta^{*}(\{q_{2}\}, bbb) 
+                			= \delta^{*}(\delta(q_{2}, b), bb) \\
+                			&= \delta^{*}(\{q_{0}\}, bb) 
+                			= \delta^{*}(\delta(q_{0}, b), b) \\
+                			&= \delta^{*}(\{q_{2}\}, b) 
+                			= \delta^{*}(\delta(q_{2}, b), \epsilon) \\
+                			&= \delta^{*}(\{q_{0}\}, \epsilon) 
+                			=  \{q_{0}\}
+                			\end{align*}
+                			Luego 
+                			\[\delta^{*}(\{q_{0}\}, aabbbb) \cap F = 
+                			\{q_{0}\} \cap \{q_{0}, q_{5}\}
+                			= \{q_{0}\} \neq \varnothing\]
+                			Por lo que $aabbbb$ sí es aceptado por el 
+                			autómata.
+                		}
+                		\item {
+                			$abaab$
+                			\begin{align*}
+                			\delta^{*}(\{q_{0}\}, abaab)
+                			&= \delta^{*}(\delta(q_{0}, a), baab) \\
+                			&= \delta^{*}(\{q_{1}, q_{3}\}, baab) 
+                			= \delta^{*}(\delta(q_{1}, b) 
+                			\cup \delta(q_{3}, b), aab) \\
+                			&= \delta^{*}(\{q_{5} \}, aab) 
+                			= \delta^{*}(\varnothing, ab)\\
+                			&= \varnothing            			
+                			\end{align*}
+                			Luego 
+                			\[\delta^{*}(\{q_{0}\}, abaab) \cap F = 
+                			\varnothing \cap \{q_{0}, q_{5}\} = \varnothing\]
+                			Por lo que $abaab$ no es aceptado por el 
+                			autómata.\\
+                		}
+                	\end{itemize}
+                
+                \item {
+                	El equivalente determinista $M^{d}$ de $M$ sería 
+                	\begin{align*}
+                	M^{d} &= \langle Q^{d}, \Sigma, \delta^{d}, p_{0}, 
+                	F^{d} \rangle \ con\\
+                	Q^{d} &= \mathcal{P}(Q)\\
+                	\Sigma &= \{a, b\} \\
+                	p_{0} &= \{q_{0}\} \\
+                	F^{d} &= \{S \in Q^{d} | S \cap F \neq \varnothing\}
+                	\end{align*}
+                	En cuanto a $\delta^{d}$, se construye a continuación 
+                	usando subconjuntos.
+                	\begin{align*}
+                	\delta^{d}(\{q_{0}\}, a) &= \{q_{1}, q_{3}\} \\
+                	\delta^{d}(\{q_{0}\}, b) &= \{q_{2}\} \\
+                	\delta^{d}(\{q_{1}, q_{3}\}, a) &= \{q_{0}, q_{4}\} \\
+                	\delta^{d}(\{q_{1}, q_{3}\}, b) &= \{q_{5}\} \\
+                	\delta^{d}(\{q_{2}\}, a) &= \varnothing \\
+                	\delta^{d}(\{q_{2}\}, b) &= \{q_{0}\} \\
+                	\delta^{d}(\{q_{0}, q_{4}\}, a) &= \{q_{1}, q_{3}\} \\
+                	\delta^{d}(\{q_{0}, q_{4}\}, b) &= \{q_{2}\}\\
+                	\delta^{d}(\{q_{5}\}, a) &= \varnothing \\
+                	\delta^{d}(\{q_{5}\}, b) &= \{q_{6}\}\\
+                	\delta^{d}(\{q_{6}\}, a) &= \varnothing \\
+                	\delta^{d}(\{q_{6}\}, b) &= \{q_{5}\} 
+                   	\end{align*}
+                	Luego, renombrando los estados
+                	\begin{align*}
+                	p_0 = \{q_{0}\}, \ p_1 = \{q_{1}, q_{3}\}, 
+                	\ p_2 = \{q_{2}\}, \ p_3 = \{q_{0}, q_{4}\},
+                	\ p_4 = \{q_{5}\}, \ p_5 = \{q_{6}\}\\
+                    \end{align*}
+                	Se puede describir $\delta^{d}$ de la siguiente manera
+                	
+                	\begin{table}[H]
+                		\centering
+                		\begin{tabular}{|c|c|c|c|c|c|c|}
+                			\hline
+                			$\delta^{d}$ & $p_0$ & $p_1$ & $p_2$ & $p_3$ & $p_4$ & $p_5$ \\ \hline
+                			$a$  & $p_1$ & $p_3$ & $\varnothing$ & $p_1$ & $\varnothing$ & $\varnothing$  \\ \hline
+                			$b$  & $p_2$ & $p_4$ & $p_0$ & $p_2$ & $p_5$ & $p_4$ \\ \hline
+                		\end{tabular}
+                	\end{table}
+                
+                Con representación gráfica.
+                \begin{figure} [H]
+                	\centering
+                	\begin{tikzpicture}[auto]
+                	% estados
+                	\node [state, accepting, initial] (p0) {$p_{0}$};
+                	\node [state] (p1) [above right=of p0] {$p_{1}$};
+                	\node [state] (p2) [below right=of p0] {$p_{2}$};
+                	\node [state] (void) [below=of p2] {$\varnothing$};
+                	\node [state, accepting] (p3) [right=of p1] {$p_{3}$};
+                	\node [state, accepting] (p4) [above right=of void] {$p_{4}$};
+                	\node [state] (p5) [right=of p4] {$p_{5}$};
+                	
+                	% transiciones
+                	\path[->]
+                	(p0) edge node {$a$} (p1)
+                	edge node {$b$} (p2)
+                	(p1) edge node {$a$} (p3)
+                	edge node {$b$} (p4)
+                	(p2) edge node {$a$} (void)
+                	edge node {$b$} (p0)
+                	(p3) edge node {$a$} (p1)
+                	edge node {$b$} (p2)
+                	(p4) edge node {$a$} (void)
+                	edge node {$b$} (p5)
+                	(p5) edge node {$a$} (void)
+                	edge node {$b$} (p4)
+                	;
+                	\end{tikzpicture}
+                	\caption{$M^{d}$ que reconoce a $L$}
+                \end{figure}
+                }
                 	}
                 \end{enumerate}
             \end{itemize}
